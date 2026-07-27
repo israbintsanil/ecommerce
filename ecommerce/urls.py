@@ -26,6 +26,7 @@ urlpatterns = [
     path('cart/', include('shopping_cart.urls')),
     path("checkout/", include("checkout.urls")),
     path("orders/", include("orders.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
 
 if settings.DEBUG:
