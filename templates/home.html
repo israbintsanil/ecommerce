@@ -21,16 +21,41 @@
         }
 
         .card{
+            position:relative;
             border:none;
             border-radius:20px;
             overflow:hidden;
             transition:.35s;
         }
+        /* Best Seller Badge */
+        
+
+        
+
+        /* Star Rating */
+        .rating{
+            color:#ffc107;
+            font-size:20px;
+            margin:10px 0;
+        }
+
+        /* Product Title */
+        .product-title{
+            font-size:24px;
+            font-weight:700;
+        }
+
+        /* View Details Button */
+        .view-btn{
+    border-radius:30px;
+    font-weight:bold;
+}
 
         .card:hover{
             transform:translateY(-10px);
             box-shadow:0 15px 35px rgba(0,0,0,.2);
         }
+
 
         .product-img{
             height:230px;
@@ -56,6 +81,34 @@
         footer{
             margin-top:80px;
         }
+        /* Carousel */
+
+.carousel{
+    max-width:900px;
+    margin:30px auto;
+}
+
+.carousel-item img{
+    height:320px;
+    object-fit:cover;
+    border-radius:20px;
+}
+
+.carousel-caption{
+    background:rgba(0,0,0,0.45);
+    border-radius:15px;
+    padding:20px;
+}
+
+.carousel-caption h2{
+    font-weight:bold;
+}
+
+.carousel-caption p{
+    font-size:20px;
+}
+
+
 
     </style>
 
@@ -108,6 +161,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/cart/">🛒 Cart</a>
                 </li>
+                <li class="nav-item">
+    <a class="nav-link" href="{% url 'my_orders' %}">
+        📦 My Orders
+    </a>
+</li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/">⚙ Admin</a>
@@ -122,6 +180,82 @@
 </nav>
 
 <div class="container mt-5">
+    <!-- Carousel -->
+
+<div id="shopCarousel"
+     class="carousel slide mb-5"
+     data-bs-ride="carousel">
+
+    <div class="carousel-indicators">
+
+        <button type="button"
+                data-bs-target="#shopCarousel"
+                data-bs-slide-to="0"
+                class="active">
+        </button>
+
+        <button type="button"
+                data-bs-target="#shopCarousel"
+                data-bs-slide-to="1">
+        </button>
+
+        <button type="button"
+                data-bs-target="#shopCarousel"
+                data-bs-slide-to="2">
+        </button>
+
+    </div>
+
+    <div class="carousel-inner rounded shadow">
+
+        <div class="carousel-item active">
+
+            <img src="/media/banners/banner1.png"
+                 class="d-block w-100 carousel-img">
+
+            
+
+        </div>
+
+        <div class="carousel-item">
+
+            <img src="/media/banners/banner2.png"
+                 class="d-block w-100 carousel-img">
+
+            
+
+        </div>
+
+        <div class="carousel-item">
+
+            <img src="/media/banners/banner3.png"
+                 class="d-block w-100 carousel-img">
+
+            
+
+        </div>
+
+    </div>
+
+    <button class="carousel-control-prev"
+            type="button"
+            data-bs-target="#shopCarousel"
+            data-bs-slide="prev">
+
+        <span class="carousel-control-prev-icon"></span>
+
+    </button>
+
+    <button class="carousel-control-next"
+            type="button"
+            data-bs-target="#shopCarousel"
+            data-bs-slide="next">
+
+        <span class="carousel-control-next-icon"></span>
+
+    </button>
+
+</div>
 
     <!-- Hero Section -->
 
@@ -171,46 +305,62 @@
 
         {% for product in products %}
 
-        <div class="col-lg-4 col-md-6 mb-4">
+<div class="col-lg-4 col-md-6 mb-4">
 
-            <div class="card h-100 shadow">
+    <div class="card h-100 shadow">
 
-                {% if product.image %}
+        <!-- Best Seller Badge -->
+        
 
-                <img
-                    src="{{ product.image.url }}"
-                    class="product-img">
+        <!-- Wishlist Heart -->
+        
 
-                {% endif %}
+        {% if product.image %}
+        <img
+            src="{{ product.image.url }}"
+            class="product-img"
+            alt="{{ product.name }}">
+        {% endif %}
 
-                <div class="card-body text-center">
+        <div class="card-body text-center">
 
-                    <h4 class="fw-bold">
-                        {{ product.name }}
-                    </h4>
-
-                    <p class="text-muted">
-                        {{ product.description|truncatewords:15 }}
-                    </p>
-
-                    <div class="price">
-                        ₹{{ product.price }}
-                    </div>
-
-                    <p class="stock mt-2">
-                        Stock: {{ product.stock }}
-                    </p>
-
-                    <a href="{% url 'product_detail' product.id %}"
-                       class="btn btn-primary w-100 mt-3">
-                        View Details
-                    </a>
-
-                </div>
-
+            <!-- Star Rating -->
+            <div class="rating">
+                ⭐⭐⭐⭐⭐
             </div>
 
+            <!-- Product Name -->
+            <h4 class="product-title">
+                {{ product.name }}
+            </h4>
+
+            <!-- Description -->
+            <p class="text-muted">
+                {{ product.description|truncatewords:15 }}
+            </p>
+
+            <!-- Price -->
+            <div class="price">
+                ₹{{ product.price }}
+            </div>
+
+            <!-- Stock -->
+            <p class="stock mt-2">
+                Stock: {{ product.stock }}
+            </p>
+
+            <!-- View Details Button -->
+            <a href="{% url 'product_detail' product.id %}"
+               class="btn btn-primary view-btn w-100 mt-3">
+                🛍 View Details
+            </a>
+
         </div>
+
+    </div>
+
+</div>
+
 
         {% empty %}
 
